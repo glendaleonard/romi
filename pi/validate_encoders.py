@@ -14,7 +14,7 @@ def main(argv):
     a_star = AStar()
 
     encoders = a_star.read_encoders()
-    print(encoders)
+    print("L: {} R: {}".format(encoders[0], encoders[1]))
 
 
 if __name__ == '__main__':
