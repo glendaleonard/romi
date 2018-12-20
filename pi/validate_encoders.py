@@ -3,7 +3,7 @@
 # Created by glendal at 2018-12-20 4:45 PM
 
 import sys
-from pi import AStar
+from a_star import AStar
 
 
 def usage():
