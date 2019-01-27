@@ -19,8 +19,12 @@ class AStar:
     # A delay of 0.0001 (100 us) after each write is enough to account
     # for the worst-case situation in our example code.
 
+    # 20 indicates the device.
     self.bus.write_byte(20, address)
     time.sleep(0.0001)
+    # Not specifying the address since the previous address was used.
+    # 20 indicates the device
+    # reads a single byte size times.
     byte_list = [self.bus.read_byte(20) for _ in range(size)]
     return struct.unpack(format, bytes(byte_list))
 
