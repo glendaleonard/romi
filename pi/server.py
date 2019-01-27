@@ -9,7 +9,19 @@ app = Flask(__name__)
 app.debug = True
 
 from a_star import AStar
+from lsm6 import LSM6DS33
+
 a_star = AStar()
+a_star.set_defaults()
+
+lsm6 = LSM6DS33()
+'''
+    
+
+    raw_acc_x = lsmd.read_raw_accel_x()
+    raw_acc_y = lsmd.read_raw_accel_y()
+    raw_acc_z = lsmd.read_raw_accel_z()
+    '''
 
 import json
 
@@ -24,7 +36,7 @@ def hello():
 @app.route("/status.json")
 def status():
     buttons = a_star.read_buttons()
-    analog = a_star.read_analog()
+    analog = read_acc_and_gyro()
     battery_millivolts = a_star.read_battery_millivolts()
     encoders = a_star.read_encoders()
     data = {
@@ -34,6 +46,20 @@ def status():
         "encoders": encoders
     }
     return json.dumps(data)
+
+
+def read_acc_and_gyro():
+    values = []
+    values[0] = lsm6.read_raw_accel_x()
+    values[1] = lsm6.read_raw_accel_y()
+    values[2] = lsm6.read_raw_accel_z()
+
+    values[3] = lsm6.read_raw_gyro_x()
+    values[4] = lsm6.read_raw_gyro_y()
+    values[5] = lsm6.read_raw_gyro_z()
+
+    return values
+
 
 @app.route("/motors/<left>,<right>")
 def motors(left, right):

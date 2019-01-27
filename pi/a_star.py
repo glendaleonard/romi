@@ -8,6 +8,11 @@ class AStar:
   def __init__(self):
     self.bus = smbus.SMBus(1)
 
+  def set_defaults(self):
+    self.write_pack(0x10, 'B', 0x80)
+    self.write_pack(0x11, 'B', 0x80)
+    self.write_pack(0x12, 'B', 0x04)
+
   def read_unpack(self, address, size, format):
     # Ideally we could do this:
     #    byte_list = self.bus.read_i2c_block_data(20, address, size)
