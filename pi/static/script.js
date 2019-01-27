@@ -29,13 +29,12 @@ function update_status(json) {
   $("#button2").html(s["buttons"][2] ? '1' : '0')
 
   $("#battery_millivolts").html(s["battery_millivolts"])
-
-  $("#analog0").html(s["analog"][0])
-  $("#analog1").html(s["analog"][1])
-  $("#analog2").html(s["analog"][2])
-  $("#analog3").html(s["analog"][3])
-  $("#analog4").html(s["analog"][4])
-  $("#analog5").html(s["analog"][5])
+  $("#acc_x").html(s["analog"][0])
+  $("#acc_y").html(s["analog"][1])
+  $("#acc_z").html(s["analog"][2])
+  $("#gyro_x").html(s["analog"][3])
+  $("#gyro_y").html(s["analog"][4])
+  $("#gyro_z").html(s["analog"][5])
   
   $("#encoders0").html(s["encoders"][0])
   $("#encoders1").html(s["encoders"][1])
