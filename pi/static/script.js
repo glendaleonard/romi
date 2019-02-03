@@ -40,6 +40,8 @@ function update_status(json) {
   $("#encoders0").html(s["encoders"][0])
   $("#encoders1").html(s["encoders"][1])
 
+  $("#x_angle").html(s["x_angle"])
+  $("#y_angle").html(s["y_angle"])
   setTimeout(poll, 100)
 }
 

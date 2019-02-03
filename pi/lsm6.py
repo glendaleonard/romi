@@ -1,4 +1,5 @@
 import sys
+import math
 import Adafruit_GPIO.I2C as I2C
 
 I2C_ADDRESS = 0x6b
@@ -57,6 +58,8 @@ class LSM6DS33:
         accel_center_y = self.i2c.readS16(0x2A)
         accel_center_z = self.i2c.readS16(0x2C)
 
+        # TODO Need to read all values for 5 or 10 secs, average the numbers and use that to zero out the readings.
+
     def read_raw_accel_x(self):
         output = self.i2c.readS16(OUTX_L_XL)
         return output
@@ -80,6 +83,33 @@ class LSM6DS33:
     def read_raw_gyro_z(self):
         output = self.i2c.readS16(OUTZ_L_G)
         return output
+
+    def calc_x_y_angles(self):
+        # see http://www.hobbytronics.co.uk/accelerometer-info
+        # Using x y and z from accelerometer, calculate x and y angles
+
+        x_val = self.readRawAccelX() - accel_center_x
+        y_val = self.readRawAccelY() - accel_center_y
+        z_val = self.readRawAccelZ() - accel_center_z
+
+        x2 = x_val * x_val
+        y2 = y_val * y_val
+        z2 = z_val * z_val
+
+        # x-axis
+        result = math.sqrt(y2 + z2)
+        if result != 0:
+            result = x_val / result
+        accel_angle_x = math.atan(result)
+
+        # y-axis
+        result = math.sqrt(x2 + z2)
+        if result != 0:
+            result = y_val / result
+        accel_angle_y = math.atan(result)
+
+        return accel_angle_x, accel_angle_y;
+
 
     '''def read_float_gyro_x(self):
         output = self.calc_gyro(self.read_raw_gyro_x())

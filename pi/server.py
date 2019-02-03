@@ -39,11 +39,14 @@ def status():
     analog = read_acc_and_gyro()
     battery_millivolts = a_star.read_battery_millivolts()
     encoders = a_star.read_encoders()
+    x_angle, y_angle = read_x_y_angles()
     data = {
         "buttons": buttons,
         "battery_millivolts": battery_millivolts,
         "analog": analog,
-        "encoders": encoders
+        "encoders": encoders,
+        "x_angle": x_angle,
+        "y_angle": y_angle
     }
     return json.dumps(data)
 
@@ -56,6 +59,10 @@ def read_acc_and_gyro():
               lsm6.read_raw_gyro_y(),
               lsm6.read_raw_gyro_z()]
     return values
+
+
+def read_x_y_angles():
+    return lsm6.calc_x_y_angles()
 
 
 @app.route("/motors/<left>,<right>")
