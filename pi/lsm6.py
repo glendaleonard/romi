@@ -88,9 +88,9 @@ class LSM6DS33:
         # see http://www.hobbytronics.co.uk/accelerometer-info
         # Using x y and z from accelerometer, calculate x and y angles
 
-        x_val = self.readRawAccelX() - accel_center_x
-        y_val = self.readRawAccelY() - accel_center_y
-        z_val = self.readRawAccelZ() - accel_center_z
+        x_val = self.read_raw_accel_x() - accel_center_x
+        y_val = self.read_raw_accel_y() - accel_center_y
+        z_val = self.read_raw_accel_z() - accel_center_z
 
         x2 = x_val * x_val
         y2 = y_val * y_val
