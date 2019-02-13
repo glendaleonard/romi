@@ -62,15 +62,15 @@ class LSM6DS33:
 
     def read_raw_accel_x(self):
         output = self.i2c.readS16(OUTX_L_XL) / 0x4009
-        return output
+        return round(output, 4)
 
     def read_raw_accel_y(self):
         output = self.i2c.readS16(OUTY_L_XL) / 0x4009
-        return output
+        return round(output, 4)
 
     def read_raw_accel_z(self):
         output = self.i2c.readS16(OUTZ_L_XL) / 0x4009
-        return output
+        return round(output, 4)
 
     def read_raw_gyro_x(self):
         output = self.i2c.readS16(OUTX_L_G)
