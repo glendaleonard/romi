@@ -31,7 +31,7 @@ class LSM6DS33:
     global accel_center_z
     accel_center_z = 0
 
-    def __init__(self, debug=0, pause=0.8):
+    def __init__(self):
         self.i2c = I2C.get_i2c_device(I2C_ADDRESS)
 
         # initialize acc
@@ -108,8 +108,7 @@ class LSM6DS33:
             result = y_val / result
         accel_angle_y = math.atan(result)
 
-        return accel_angle_x, accel_angle_y;
-
+        return round(accel_angle_x, 4), round(accel_angle_y, 4)
 
     '''def read_float_gyro_x(self):
         output = self.calc_gyro(self.read_raw_gyro_x())
@@ -129,7 +128,7 @@ class LSM6DS33:
 '''
 
 
-def main(argv):
+def main():
     lsmd = LSM6DS33()
 
     raw_acc_x = lsmd.read_raw_accel_x()
@@ -146,4 +145,4 @@ def main(argv):
 
 
 if __name__ == '__main__':
-    main(sys.argv[1:])
+    main()
