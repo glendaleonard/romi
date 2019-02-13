@@ -61,15 +61,15 @@ class LSM6DS33:
         # TODO Need to read all values for 5 or 10 secs, average the numbers and use that to zero out the readings.
 
     def read_raw_accel_x(self):
-        output = self.i2c.readS16(OUTX_L_XL)
+        output = self.i2c.readS16(OUTX_L_XL) / 0x4009
         return output
 
     def read_raw_accel_y(self):
-        output = self.i2c.readS16(OUTY_L_XL)
+        output = self.i2c.readS16(OUTY_L_XL) / 0x4009
         return output
 
     def read_raw_accel_z(self):
-        output = self.i2c.readS16(OUTZ_L_XL)
+        output = self.i2c.readS16(OUTZ_L_XL) / 0x4009
         return output
 
     def read_raw_gyro_x(self):
