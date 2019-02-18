@@ -61,30 +61,24 @@ class LSM6DS33:
         # TODO Need to read all values for 5 or 10 secs, average the numbers and use that to zero out the readings.
 
     def read_raw_accel_x(self):
-        output = self.i2c.readS16(OUTX_L_XL) / 0x4009
-        return round(output, 4)
+        return self.i2c.readS16(OUTX_L_XL)
 
     def read_raw_accel_y(self):
-        output = self.i2c.readS16(OUTY_L_XL) / 0x4009
-        return round(output, 4)
+        return self.i2c.readS16(OUTY_L_XL)
 
     def read_raw_accel_z(self):
-        output = self.i2c.readS16(OUTZ_L_XL) / 0x4009
-        return round(output, 4)
+        return self.i2c.readS16(OUTZ_L_XL)
 
-    def read_raw_gyro_x(self):
-        output = self.i2c.readS16(OUTX_L_G)
-        return output
+    def read_scaled_g_accel_x(self):
+        return round(self.i2c.readS16(OUTX_L_XL) / 0x4009, 4)
 
-    def read_raw_gyro_y(self):
-        output = self.i2c.readS16(OUTY_L_G)
-        return output
+    def read_scaled_g_accel_y(self):
+        return round(self.i2c.readS16(OUTY_L_XL) / 0x4009, 4)
 
-    def read_raw_gyro_z(self):
-        output = self.i2c.readS16(OUTZ_L_G)
-        return output
+    def read_scaled_g_accel_z(self):
+        return round(self.i2c.readS16(OUTZ_L_XL) / 0x4009, 4)
 
-    def calc_x_y_angles(self):
+    def calc_x_y_angles_from_acc(self):
         # see http://www.hobbytronics.co.uk/accelerometer-info
         # Using x y and z from accelerometer, calculate x and y angles
 
@@ -109,6 +103,18 @@ class LSM6DS33:
         accel_angle_y = math.atan(result)
 
         return round(accel_angle_x, 4), round(accel_angle_y, 4)
+
+    def read_raw_gyro_x(self):
+        output = self.i2c.readS16(OUTX_L_G)
+        return output
+
+    def read_raw_gyro_y(self):
+        output = self.i2c.readS16(OUTY_L_G)
+        return output
+
+    def read_raw_gyro_z(self):
+        output = self.i2c.readS16(OUTZ_L_G)
+        return output
 
     '''def read_float_gyro_x(self):
         output = self.calc_gyro(self.read_raw_gyro_x())

@@ -52,9 +52,9 @@ def status():
 
 
 def read_acc_and_gyro():
-    values = [lsm6.read_raw_accel_x(),
-              lsm6.read_raw_accel_y(),
-              lsm6.read_raw_accel_z(),
+    values = [lsm6.read_scaled_g_accel_x(),
+              lsm6.read_scaled_g_accel_y(),
+              lsm6.read_scaled_g_accel_z(),
               lsm6.read_raw_gyro_x(),
               lsm6.read_raw_gyro_y(),
               lsm6.read_raw_gyro_z()]
@@ -62,7 +62,7 @@ def read_acc_and_gyro():
 
 
 def read_x_y_angles():
-    return lsm6.calc_x_y_angles()
+    return lsm6.calc_x_y_angles_from_acc()
 
 
 @app.route("/motors/<left>,<right>")
