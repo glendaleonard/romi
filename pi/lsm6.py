@@ -78,7 +78,7 @@ class LSM6DS33:
     def read_scaled_g_accel_z(self):
         return round(self.i2c.readS16(OUTZ_L_XL) / 0x4009, 4)
 
-    def calc_x_y_angles_from_acc(self):
+    def calc_x_y_angles_from_acc_rad(self):
         # see http://www.hobbytronics.co.uk/accelerometer-info
         # Using x y and z from accelerometer, calculate x and y angles
 
@@ -103,6 +103,10 @@ class LSM6DS33:
         accel_angle_y = math.atan(result)
 
         return round(accel_angle_x, 4), round(accel_angle_y, 4)
+
+    def calc_x_y_angles_from_acc_degrees(self):
+        x, y = self.calc_x_y_angles_from_acc_rad()
+        return math.degrees(x), math.degrees(y)
 
     def read_raw_gyro_x(self):
         output = self.i2c.readS16(OUTX_L_G)
