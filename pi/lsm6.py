@@ -106,7 +106,7 @@ class LSM6DS33:
 
     def calc_x_y_angles_from_acc_degrees(self):
         x, y = self.calc_x_y_angles_from_acc_rad()
-        return math.degrees(x), math.degrees(y)
+        return round(math.degrees(x), 4), round(math.degrees(y), 4)
 
     def read_raw_gyro_x(self):
         output = self.i2c.readS16(OUTX_L_G)
