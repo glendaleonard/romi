@@ -53,9 +53,9 @@ def read_acc_and_gyro():
     values = [lsm6.read_scaled_g_accel_x(),
               lsm6.read_scaled_g_accel_y(),
               lsm6.read_scaled_g_accel_z(),
-              lsm6.read_raw_gyro_x(),
-              lsm6.read_raw_gyro_y(),
-              lsm6.read_raw_gyro_z()]
+              lsm6.read_scaled_dps_gyro_x(),
+              lsm6.read_scaled_dps_gyro_y(),
+              lsm6.read_scaled_dps_gyro_z()]
     return values
 
 

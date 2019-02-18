@@ -120,6 +120,15 @@ class LSM6DS33:
         output = self.i2c.readS16(OUTZ_L_G)
         return output
 
+    def read_scaled_dps_gyro_x(self):
+        return round(self.i2c.readS16(OUTX_L_G)/114.28, 4)
+
+    def read_scaled_dps_gyro_y(self):
+        return round(self.i2c.readS16(OUTY_L_G)/114.28, 4)
+
+    def read_scaled_dps_gyro_z(self):
+        return round(self.i2c.readS16(OUTZ_L_G)/114.28, 4)
+
     '''def read_float_gyro_x(self):
         output = self.calc_gyro(self.read_raw_gyro_x())
         return output
