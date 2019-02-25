@@ -40,6 +40,7 @@ def status():
     x_angle, y_angle = read_x_y_angles()
     current_x_angle, current_y_angle, current_z_angle = read_current_angles()
 
+    print("x: {}, y: {} z: {}".format(current_x_angle, current_y_angle, current_z_angle))
     data = {
         "buttons": buttons,
         "battery_millivolts": battery_millivolts,
@@ -72,7 +73,7 @@ def read_current_angles():
     x = lsm6.read_current_gyro_degrees_x()
     y = lsm6.read_current_gyro_degrees_y()
     z = lsm6.read_current_gyro_degrees_z()
-    print("x: {}, y: {} z: {}".format(x, y, z))
+    # print("x: {}, y: {} z: {}".format(x, y, z))
 
     return x, y, z
 
