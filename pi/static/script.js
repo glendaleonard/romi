@@ -41,6 +41,11 @@ function update_status(json) {
 
   $("#x_angle").html(s["x_angle"])
   $("#y_angle").html(s["y_angle"])
+
+  $("#current_x").html(s["current_x"])
+  $("#current_y").html(s["current_y"])
+  $("#current_z").html(s["current_z"])
+
   setTimeout(poll, 100)
 }
 

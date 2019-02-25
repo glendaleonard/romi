@@ -38,13 +38,18 @@ def status():
     battery_millivolts = a_star.read_battery_millivolts()
     encoders = a_star.read_encoders()
     x_angle, y_angle = read_x_y_angles()
+    current_x_angle, current_y_angle, current_z_angle = read_current_angles()
+
     data = {
         "buttons": buttons,
         "battery_millivolts": battery_millivolts,
         "analog": analog,
         "encoders": encoders,
         "x_angle": x_angle,
-        "y_angle": y_angle
+        "y_angle": y_angle,
+        "current_x": current_x_angle,
+        "current_y": current_y_angle,
+        "current_z": current_z_angle
     }
     return json.dumps(data)
 
@@ -61,6 +66,10 @@ def read_acc_and_gyro():
 
 def read_x_y_angles():
     return lsm6.calc_x_y_angles_from_acc_degrees()
+
+
+def read_current_angles():
+    return lsm6.read_current_gyro_degrees_x(), lsm6.read_current_gyro_degrees_y(), lsm6.read_current_gyro_degrees_z()
 
 
 @app.route("/motors/<left>,<right>")
@@ -107,5 +116,33 @@ def shutting_down():
     return "Shutting down in 2 seconds! You can remove power when the green LED stops flashing."
 
 
+# def calc_tilt_angle():
+
+
+'''
+/********************************************************************
+* Complimentary Filter
+********************************************************************/
+float filterAngle;
+float dt=0.02;
+
+float comp_filter(float newAngle, float newRate) {
+
+float filterTerm0;
+float filterTerm1;
+float filterTerm2;
+float timeConstant;
+
+timeConstant=0.5; // default 1.0
+
+filterTerm0 = (newAngle - filterAngle) * timeConstant * timeConstant;
+filterTerm2 += filterTerm0 * dt;
+filterTerm1 = filterTerm2 + ((newAngle - filterAngle) * 2 * timeConstant) + newRate;
+filterAngle = (filterTerm1 * dt) + filterAngle;
+
+return previousAngle; // This is actually the current angle, but is stored for the next iteration
+}
+'''
+
 if __name__ == "__main__":
-    app.run(host = "0.0.0.0")
+    app.run(host="0.0.0.0")

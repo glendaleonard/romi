@@ -24,15 +24,17 @@ OUTZ_L_G = 0x26  # auto incr will also read 0x27
 class LSM6DS33:
     i2c = None
     tempvar = 0
-    global accel_center_x
-    accel_center_x = 0
-    global accel_center_y
-    accel_center_y = 0
-    global accel_center_z
-    accel_center_z = 0
 
     def __init__(self):
         self.i2c = I2C.get_i2c_device(I2C_ADDRESS)
+
+        self.accel_center_x = 0
+        self.accel_center_y = 0
+        self.accel_center_z = 0
+
+        self.current_gyro_degrees_x = 0
+        self.current_gyro_degrees_y = 0
+        self.current_gyro_degrees_z = 0
 
         # initialize acc
 
@@ -78,13 +80,23 @@ class LSM6DS33:
     def read_scaled_g_accel_z(self):
         return round(self.i2c.readS16(OUTZ_L_XL) / 0x4009, 4)
 
+    def read_current_gyro_degrees_x(self):
+        # TODO set read frequency as a global somewhere
+        self.current_gyro_degrees_x = self.current_gyro_degrees_x + (self.read_scaled_g_accel_x() * 0.1)
+
+    def read_current_gyro_degrees_y(self):
+        self.current_gyro_degrees_y = self.current_gyro_degrees_y + (self.read_scaled_g_accel_y() * 0.1)
+
+    def read_current_gyro_degrees_z(self):
+        self.current_gyro_degrees_z = self.current_gyro_degrees_z + (self.read_scaled_g_accel_z() * 0.1)
+
     def calc_x_y_angles_from_acc_rad(self):
         # see http://www.hobbytronics.co.uk/accelerometer-info
         # Using x y and z from accelerometer, calculate x and y angles
 
-        x_val = self.read_raw_accel_x() - accel_center_x
-        y_val = self.read_raw_accel_y() - accel_center_y
-        z_val = self.read_raw_accel_z() - accel_center_z
+        x_val = self.read_raw_accel_x() - self.accel_center_x
+        y_val = self.read_raw_accel_y() - self.accel_center_y
+        z_val = self.read_raw_accel_z() - self.accel_center_z
 
         x2 = x_val * x_val
         y2 = y_val * y_val
