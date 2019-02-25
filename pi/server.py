@@ -69,7 +69,12 @@ def read_x_y_angles():
 
 
 def read_current_angles():
-    return lsm6.read_current_gyro_degrees_x(), lsm6.read_current_gyro_degrees_y(), lsm6.read_current_gyro_degrees_z()
+    x = lsm6.read_current_gyro_degrees_x()
+    y = lsm6.read_current_gyro_degrees_y()
+    z = lsm6.read_current_gyro_degrees_z()
+    print("x: {}, y: {} z: {}".format(x, y, z))
+
+    return x, y, z
 
 
 @app.route("/motors/<left>,<right>")
