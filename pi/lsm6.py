@@ -83,15 +83,15 @@ class LSM6DS33:
     def read_current_gyro_degrees_x(self):
         # TODO set read frequency as a global somewhere
         self.current_gyro_degrees_x = self.current_gyro_degrees_x + (self.read_scaled_g_accel_x() * 0.1)
-        return self.current_gyro_degrees_x
+        return round(self.current_gyro_degrees_x, 4)
 
     def read_current_gyro_degrees_y(self):
         self.current_gyro_degrees_y = self.current_gyro_degrees_y + (self.read_scaled_g_accel_y() * 0.1)
-        return self.current_gyro_degrees_y
+        return round(self.current_gyro_degrees_y, 4)
 
     def read_current_gyro_degrees_z(self):
         self.current_gyro_degrees_z = self.current_gyro_degrees_z + (self.read_scaled_g_accel_z() * 0.1)
-        return self.current_gyro_degrees_z
+        return round(self.current_gyro_degrees_z, 4)
 
     def calc_x_y_angles_from_acc_rad(self):
         # see http://www.hobbytronics.co.uk/accelerometer-info
