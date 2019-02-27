@@ -40,7 +40,6 @@ def status():
     x_angle, y_angle = read_x_y_angles()
     current_x_angle, current_y_angle, current_z_angle = read_current_angles()
 
-    print("x: {}, y: {} z: {}".format(current_x_angle, current_y_angle, current_z_angle))
     data = {
         "buttons": buttons,
         "battery_millivolts": battery_millivolts,
