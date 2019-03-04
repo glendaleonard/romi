@@ -83,14 +83,14 @@ class LSM6DS33:
 
     def read_current_gyro_degrees_x(self):
         # TODO set read frequency as a global somewhere
-        raw_x = self.read_scaled_g_accel_x()
+        raw_x = self.read_scaled_dps_gyro_x()
         print("raw gyro x value: {}".format(raw_x))
 
         self.current_gyro_degrees_x = self.current_gyro_degrees_x + (raw_x * 0.1)
         return round(self.current_gyro_degrees_x, 4)
 
     def read_current_gyro_degrees_y(self):
-        raw_y = self.read_scaled_g_accel_y()
+        raw_y = self.read_scaled_dps_gyro_y()
         print("raw gyro y value: {}".format(raw_y))
         self.current_gyro_degrees_y = self.current_gyro_degrees_y + (raw_y * 0.1)
         return round(self.current_gyro_degrees_y, 4)
