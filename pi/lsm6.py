@@ -1,5 +1,6 @@
 import sys
 import math
+import time
 import Adafruit_GPIO.I2C as I2C
 
 I2C_ADDRESS = 0x6b
@@ -165,7 +166,13 @@ class LSM6DS33:
 def main():
     lsmd = LSM6DS33()
 
-    raw_acc_x = lsmd.read_raw_accel_x()
+    for i in range(20):
+        x_degrees = lsmd.read_current_gyro_degrees_x()
+        y_degrees = lsmd.read_current_gyro_degrees_y()
+        time.sleep(0.1)
+
+        print("gyro x: {} gyro y: {}".format(x_degrees, y_degrees))
+    '''raw_acc_x = lsmd.read_raw_accel_x()
     raw_acc_y = lsmd.read_raw_accel_y()
     raw_acc_z = lsmd.read_raw_accel_z()
     # dividing by 16393 (0x4009) which is what 1g measures as.
@@ -175,7 +182,9 @@ def main():
     raw_gyro_x = lsmd.read_raw_gyro_x()
     raw_gyro_y = lsmd.read_raw_gyro_y()
     raw_gyro_z = lsmd.read_raw_gyro_z()
-    print("raw gyro X: {} raw gyro Y: {} raw gyro Z: {}".format(raw_gyro_x, raw_gyro_y, raw_gyro_z))
+    print("raw gyro X: {} raw gyro Y: {} raw gyro Z: {}".format(raw_gyro_x, raw_gyro_y, raw_gyro_z))'''
+
+
 
 
 if __name__ == '__main__':
